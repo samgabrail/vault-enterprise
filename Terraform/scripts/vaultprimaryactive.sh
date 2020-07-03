@@ -41,7 +41,7 @@ storage "raft" {
   path = "/opt/raft"
   node_id = "raft_node_1"
 }
-cluster_addr = "http://0.0.0.0:8201"
+cluster_addr = "http://${internalip}:8201"
 api_addr = "http://0.0.0.0:8200"
 ui = true
 
