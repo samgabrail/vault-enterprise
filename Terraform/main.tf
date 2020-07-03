@@ -6,7 +6,6 @@ terraform {
 }
 
 provider "google" {
-  # version = "= 2.5.1"
   project  = var.project
 }
 
@@ -39,10 +38,11 @@ resource "google_compute_firewall" "vault-fw" {
   target_tags   = ["vault-server"]
 }
 
-resource "google_compute_instance" "vault-prim-uswest1-a" {
-  name         = "vault-prim-uswest1-a"
+resource "google_compute_instance" "vault-servers" {
+  for_each = var.instance_names
+  name         = each.key
   machine_type = var.machine_type
-  zone         = "us-west1-a"
+  zone         = each.value
   allow_stopping_for_update = true
 
   boot_disk {
@@ -68,8 +68,9 @@ resource "google_compute_instance" "vault-prim-uswest1-a" {
 
 
 resource "null_resource" "configure-vault" {
+  for_each = var.instance_names
   depends_on = [
-    google_compute_instance.vault-prim-uswest1-a
+    google_compute_instance.vault-servers
   ]
 
   triggers = {
@@ -85,7 +86,7 @@ resource "null_resource" "configure-vault" {
       user        = "ubuntu"
       timeout     = "300s"
       private_key = tls_private_key.ssh-key.private_key_pem
-      host        = google_compute_instance.vault-prim-uswest1-a.network_interface.0.access_config.0.nat_ip
+      host        = google_compute_instance.vault-servers[each.key].network_interface.0.access_config.0.nat_ip
     }
   }
 
@@ -100,7 +101,7 @@ resource "null_resource" "configure-vault" {
       user        = "ubuntu"
       timeout     = "300s"
       private_key = tls_private_key.ssh-key.private_key_pem
-      host        = google_compute_instance.vault-prim-uswest1-a.network_interface.0.access_config.0.nat_ip
+      host        = google_compute_instance.vault-servers[each.key].network_interface.0.access_config.0.nat_ip
     }
   }
 }
