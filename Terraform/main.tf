@@ -1,3 +1,10 @@
+terraform {
+  required_providers {
+    google = "~> 3.28"
+    null = "~> 2.1"
+  }
+}
+
 provider "google" {
   # version = "= 2.5.1"
   project  = var.project
