@@ -10,6 +10,6 @@ output "vault_external_urls" {
 output "vault_internal_ips" {
   value = {
       for instance in google_compute_instance.vault-servers:
-      instance.name => "${google_compute_instance.vault-servers[each.key].network_interface.0.network_ip}"
+      instance.name => "${instance.network_interface.0.network_ip}"
   }
 }
