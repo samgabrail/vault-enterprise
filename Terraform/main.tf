@@ -40,7 +40,5 @@ resource "google_compute_instance" "vault-prim-uswest1-a" {
     }
   }
 
-  metadata_startup_script = "echo hi > /test.txt"
-
-  allow_stopping_for_update = true
+  allow_stopping_for_update = "true"
 }
