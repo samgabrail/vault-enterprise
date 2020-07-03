@@ -31,7 +31,7 @@ chown --recursive vault:vault /etc/vault.d
 chmod 640 /etc/vault.d/vault.hcl
 mkdir /opt/raft
 chown -R vault:vault /opt/raft
-
+echo internal ip from within: ${internalip}
 cat > /etc/vault.d/vault.hcl <<EOF
 listener "tcp" {
   address       = "0.0.0.0:8200"
@@ -39,7 +39,6 @@ listener "tcp" {
 }
 storage "raft" {
   path = "/opt/raft"
-  node_id = "raft_node_1"
 }
 cluster_addr = "http://${internalip}:8201"
 api_addr = "http://0.0.0.0:8200"

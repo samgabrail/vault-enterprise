@@ -93,8 +93,7 @@ resource "null_resource" "configure-vault" {
     inline = [
       "sudo chmod +x *.sh",
       "echo internal ip is ${google_compute_instance.vault-servers[each.key].network_interface.0.network_ip}",
-      "internalip=${google_compute_instance.vault-servers[each.key].network_interface.0.network_ip}",
-      "sudo ./vaultprimaryactive.sh",
+      "sudo internalip=${google_compute_instance.vault-servers[each.key].network_interface.0.network_ip} ./vaultprimaryactive.sh",
     ]
 
     connection {
