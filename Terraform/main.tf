@@ -39,7 +39,7 @@ resource "google_compute_instance" "vault-prim-uswest1-a" {
   network_interface {
     network = google_compute_network.samg-vpc.name
     }
-  }
+}
 
   
-}
+
