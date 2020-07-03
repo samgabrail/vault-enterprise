@@ -7,28 +7,8 @@ variable "location" {
   default     = "us-central1-a"
 }
 
-variable "cluster_name" {
-  description = "name of kubernetes cluster"
-}
-
-variable "nodepool_name" {
-  description = "name of nodepool"
-}
-
 variable "initial_node_count" {
   description = "initial amount of nodes to deploy for the kubernetes cluster"
-  default     = "1"
-}
-
-variable "nodepool_node_count" {
-  default     = "2"
-}
-
-variable "vault_node_count" {
-  default     = "1"
-}
-
-variable "consul_node_count" {
   default     = "1"
 }
 
@@ -39,7 +19,7 @@ variable "network" {
 
 variable "machine_type" {
   description = "size of the compute resources"
-  default     = "n1-standard-1"
+  default     = "g1-small"
 }
 
 variable "dns_managed_zone" {
