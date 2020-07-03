@@ -28,6 +28,7 @@ resource "google_compute_instance" "vault-prim-uswest1-a" {
   name         = "vault-prim-uswest1-a"
   machine_type = var.machine_type
   zone         = "us-west1-a"
+  allow_stopping_for_update = true
 
   boot_disk {
     initialize_params {
@@ -40,5 +41,5 @@ resource "google_compute_instance" "vault-prim-uswest1-a" {
     }
   }
 
-  allow_stopping_for_update = "true"
+  
 }
