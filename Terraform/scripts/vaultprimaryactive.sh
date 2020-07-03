@@ -88,3 +88,5 @@ EOF
 systemctl enable vault
 systemctl start vault
 systemctl status vault
+
+echo "Script complete."
