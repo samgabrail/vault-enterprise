@@ -28,7 +28,7 @@ resource "google_compute_firewall" "vault-fw" {
 
   allow {
     protocol = "tcp"
-    ports    = ["22", "8200"]
+    ports    = ["22", "8200", "8201"]
   }
 
   direction = "INGRESS"
