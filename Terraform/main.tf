@@ -18,7 +18,7 @@ resource "google_compute_firewall" "vault-fw" {
     ports    = ["22", "8200"]
   }
 
-  direction = INGRESS
+  direction = "INGRESS"
 
   source_ranges = ["0.0.0.0/0"]
 }
