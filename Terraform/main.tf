@@ -3,6 +3,7 @@ provider "google" {
 
 resource "google_compute_network" "samg-vpc" {
   name = "samg-vpc"
+  project  = var.project
 }
 
 resource "google_compute_firewall" "vault-fw" {
