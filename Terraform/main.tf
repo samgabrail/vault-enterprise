@@ -1,5 +1,5 @@
 provider "google" {
-  version = "= 2.5.1"
+  # version = "= 2.5.1"
   project  = var.project
 }
 
