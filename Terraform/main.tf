@@ -92,7 +92,6 @@ resource "null_resource" "configure-vault" {
   provisioner "remote-exec" {
     inline = [
       "sudo chmod +x *.sh",
-      "echo"
       "internalip=${google_compute_instance.vault-servers[each.key].network_interface.0.network_ip}",
       "sudo ./vaultprimaryactive.sh",
     ]
