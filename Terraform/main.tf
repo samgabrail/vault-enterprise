@@ -76,18 +76,18 @@ resource "null_resource" "configure-vault" {
     build_number = timestamp()
   }
 
-  provisioner "file" {
-    source      = "scripts/"
-    destination = "/home/ubuntu/"
+  # provisioner "file" {
+  #   source      = "scripts/"
+  #   destination = "/home/ubuntu/"
 
-    connection {
-      type        = "ssh"
-      user        = "ubuntu"
-      timeout     = "300s"
-      private_key = tls_private_key.ssh-key.private_key_pem
-      host        = google_compute_instance.vault-prim-uswest1-a.network_interface.0.access_config.0.nat_ip
-    }
-  }
+  #   connection {
+  #     type        = "ssh"
+  #     user        = "ubuntu"
+  #     timeout     = "300s"
+  #     private_key = tls_private_key.ssh-key.private_key_pem
+  #     host        = google_compute_instance.vault-prim-uswest1-a.network_interface.0.access_config.0.nat_ip
+  #   }
+  # }
 
   provisioner "remote-exec" {
     inline = [
