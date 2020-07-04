@@ -38,7 +38,15 @@ resource "vault_policy" "operations_policy" {
   policy = file("policies/operation_policy.hcl")
 }
 
+resource "vault_mount" "admins" {
+  provider = vault.ns1
+  path        = "admins"
+  type        = "kv-v2"
+  description = "KV2 Secrets Engine for admins."
+}
+
 resource "vault_mount" "developers" {
+  provider = vault.ns2
   path        = "developers"
   type        = "kv-v2"
   description = "KV2 Secrets Engine for Developers."
@@ -50,8 +58,21 @@ resource "vault_mount" "operations" {
   description = "KV2 Secrets Engine for Operations."
 }
 
+resource "vault_generic_secret" "admins_sample_data" {
+  provider = vault.ns1
+  path = "${vault_mount.admins.path}/test_account_admins"
+
+  data_json = <<EOT
+{
+  "username": "foo-ns1-admins",
+  "password": "bar-ns1-admins"
+}
+EOT
+}
+
 resource "vault_generic_secret" "developer_sample_data" {
-  path = "${vault_mount.developers.path}/test_account"
+  provider = vault.ns2
+  path = "${vault_mount.developers.path}/test_account_developers"
 
   data_json = <<EOT
 {
@@ -61,17 +82,7 @@ resource "vault_generic_secret" "developer_sample_data" {
 EOT
 }
 
-resource "vault_generic_secret" "developer_sample_data_ns1" {
-  provider = vault.ns1
-  path = "${vault_mount.developers.path}/test_account"
 
-  data_json = <<EOT
-{
-  "username": "foo-ns1",
-  "password": "bar-ns1"
-}
-EOT
-}
 
 resource "vault_generic_secret" "developer_sample_data_ns2" {
   provider = vault.ns2
