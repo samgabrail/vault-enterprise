@@ -1,3 +1,11 @@
+resource "vault_namespace" "ns1" {
+  path = "ns1"
+}
+
+resource "vault_namespace" "ns2" {
+  path = "ns2"
+}
+
 resource "vault_namespace" "subns1" {
   provider = vault.ns1
   path = "subns1"
