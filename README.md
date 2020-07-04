@@ -1,6 +1,8 @@
 # Vault Enterprise Deployment and Configuration
 
-Here we deploy vault enterprise on GCP
+Here we deploy vault enterprise on GCP using raft based on this guide:
+https://learn.hashicorp.com/vault/operations/ops-deployment-guide-raft
+and https://www.vaultproject.io/docs/configuration/storage/raft
 
 Make sure you enable the enterprise license or else you get 30 minutes and then the node reseals and you have to restart the vault service.
 
