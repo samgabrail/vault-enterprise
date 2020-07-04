@@ -4,8 +4,6 @@ Here we deploy vault enterprise on GCP using raft based on this guide:
 https://learn.hashicorp.com/vault/operations/ops-deployment-guide-raft
 and https://www.vaultproject.io/docs/configuration/storage/raft
 
-
-
 The following guide is essential for setting up DR
 https://learn.hashicorp.com/vault/operations/ops-disaster-recovery
 
@@ -32,5 +30,7 @@ Here is the order to create the DR and PR replicas:
 - When all members of Raft on the Primary cluster are down the PR Secondary doesn't become Primary it remains Secondary serving traffic. However, if you try to create a new KV secret it fails with the following Error: `1 error occurred: * rpc error: code = Unavailable desc = all SubConns are in TransientFailure, latest connection error: connection error: desc = "transport: Error while dialing remote error: tls: internal error`. However, when the Primary cluster is back up, you can write on the PR secondary no problem and that gets replicated to the Primary.
 - When killing the PR secondary and promoting its DR (vault-dr-pr-useast1-d), you need to generate an operation token, you do that by supplying the unseal master key of the primary Raft cluster! Then you need to run a command similar to the below but not on the DR node, it has to go on the primary Raft cluster where you used the unseal master key: `vault operator generate-root -otp="IMuVne4QilgpFdm2J9DXx8aiBu" -decode="OmMAJlwdfmEMIl4ePgwYehxqNCoQdwBaL0c"` Then the DR will come up unsealed and you need to supply the root token of the PR secondary to log in. Now this promoted cluster is not connected to the Primary Raft cluster. Any changes on the Primary Raft Cluster don't get reflected here. You also can't write secrets to this DR cluster. Under the UI Status dropdown, you see that this node became DR Primary and that the vault-pr-useast1-b which is the Secondary PR is still shown as the secondary PR and that's why no replication happens between the regions.
 - When you restore the PR secondary, you need to supply the unseal key of the Primary Raft cluster
-- To restore things to normal that DR (vault-dr-pr-useast1-d) needs to have both PR and DR replication disabled. Then on the PR primary you need to revoke its DR secondary and rejoin the DR to return the initial state. All data on the DR will be wiped at this point.
-
+- To restore things to normal that DR (vault-dr-pr-useast1-d) needs to have both PR and DR replication disabled. Then on the PR primary you need to revoke its DR secondary and rejoin the DR to return the initial state. All data on the DR will be wiped at this point. These are the two options available according to https://learn.hashicorp.com/vault/operations/ops-disaster-recovery#workflow:
+Option 1 - Demote DR Primary to Secondary
+Option 2 - Disable the original DR Primary
+- You can also use a batch token starting with Vault 1.4 as per https://learn.hashicorp.com/vault/operations/ops-disaster-recovery#dr-operation-token-strategy
