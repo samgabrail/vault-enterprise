@@ -1,29 +1,26 @@
-resource "vault_namespace" "ns1" {
-  path = "ns1"
-}
-
-resource "vault_namespace" "ns2" {
-  path = "ns2"
-}
-
 resource "vault_namespace" "subns1" {
-  path = "ns1/subns1"
+  provider = "vault.ns1"
+  path = "subns1"
 }
 
 resource "vault_namespace" "subns2" {
-  path = "ns2/subns2"
+  provider = "vault.ns2"
+  path = "subns2"
 }
 
 resource "vault_auth_backend" "example" {
+  provider = "vault.ns1"
   type = "userpass"
 }
 
 resource "vault_policy" "admin_policy" {
+  provider = "vault.ns1"
   name   = "admins"
   policy = file("policies/admin_policy.hcl")
 }
 
 resource "vault_policy" "developer_policy" {
+  provider = "vault.ns2"
   name   = "developers"
   policy = file("policies/developer_policy.hcl")
 }
@@ -52,6 +49,30 @@ resource "vault_generic_secret" "developer_sample_data" {
 {
   "username": "foo",
   "password": "bar"
+}
+EOT
+}
+
+resource "vault_generic_secret" "developer_sample_data" {
+  provider = "vault.ns1"
+  path = "${vault_mount.developers.path}/test_account"
+
+  data_json = <<EOT
+{
+  "username": "foo-ns1",
+  "password": "bar-ns1"
+}
+EOT
+}
+
+resource "vault_generic_secret" "developer_sample_data" {
+  provider = "vault.ns2"
+  path = "${vault_mount.developers.path}/test_account"
+
+  data_json = <<EOT
+{
+  "username": "foo-ns2",
+  "password": "bar-ns2"
 }
 EOT
 }

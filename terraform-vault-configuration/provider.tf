@@ -5,4 +5,11 @@ terraform {
 }
 
 provider "vault" {
+  alias = "ns1"
+  namespace = "ns1"
+}
+
+provider "vault" {
+  alias = "ns2"
+  namespace = "ns2"
 }
