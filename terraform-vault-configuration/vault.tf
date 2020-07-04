@@ -123,23 +123,23 @@ resource "vault_mount" "db_nomad" {
 //   }
 // }
 
-resource "vault_database_secret_backend_role" "mongodb-role" {
-  backend             = vault_mount.db.path
-  name                = "mongodb-role"
-  db_name             = vault_database_secret_backend_connection.mongodb.name
-  default_ttl         = "10"
-  max_ttl             = "86400"
-  creation_statements = ["{ \"db\": \"admin\", \"roles\": [{ \"role\": \"readWriteAnyDatabase\" }, {\"role\": \"read\", \"db\": \"foo\"}] }"]
-}
+// resource "vault_database_secret_backend_role" "mongodb-role" {
+//   backend             = vault_mount.db.path
+//   name                = "mongodb-role"
+//   db_name             = vault_database_secret_backend_connection.mongodb.name
+//   default_ttl         = "10"
+//   max_ttl             = "86400"
+//   creation_statements = ["{ \"db\": \"admin\", \"roles\": [{ \"role\": \"readWriteAnyDatabase\" }, {\"role\": \"read\", \"db\": \"foo\"}] }"]
+// }
 
-resource "vault_database_secret_backend_role" "mongodb-nomad-role" {
-  backend             = vault_mount.db_nomad.path
-  name                = "mongodb-nomad-role"
-  db_name             = vault_database_secret_backend_connection.mongodb_nomad.name
-  default_ttl         = "10"
-  max_ttl             = "86400"
-  creation_statements = ["{ \"db\": \"admin\", \"roles\": [{ \"role\": \"readWriteAnyDatabase\" }, {\"role\": \"read\", \"db\": \"foo\"}] }"]
-}
+// resource "vault_database_secret_backend_role" "mongodb-nomad-role" {
+//   backend             = vault_mount.db_nomad.path
+//   name                = "mongodb-nomad-role"
+//   db_name             = vault_database_secret_backend_connection.mongodb_nomad.name
+//   default_ttl         = "10"
+//   max_ttl             = "86400"
+//   creation_statements = ["{ \"db\": \"admin\", \"roles\": [{ \"role\": \"readWriteAnyDatabase\" }, {\"role\": \"read\", \"db\": \"foo\"}] }"]
+// }
 
 resource "vault_mount" "transit" {
   path                      = "transit"
