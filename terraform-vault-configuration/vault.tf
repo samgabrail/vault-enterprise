@@ -1,3 +1,11 @@
+resource "vault_namespace" "ns1" {
+  path = "ns1"
+}
+
+resource "vault_namespace" "ns2" {
+  path = "ns2"
+}
+
 resource "vault_auth_backend" "example" {
   type = "userpass"
 }
