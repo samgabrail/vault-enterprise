@@ -6,6 +6,14 @@ resource "vault_namespace" "ns2" {
   path = "ns2"
 }
 
+resource "vault_namespace" "subns1" {
+  path = "ns1/subns1"
+}
+
+resource "vault_namespace" "subns2" {
+  path = "ns2/subns2"
+}
+
 resource "vault_auth_backend" "example" {
   type = "userpass"
 }
