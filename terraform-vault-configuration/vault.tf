@@ -76,22 +76,19 @@ resource "vault_generic_secret" "developer_sample_data" {
 
   data_json = <<EOT
 {
-  "username": "foo",
-  "password": "bar"
+  "username": "foo-ns2-developers",
+  "password": "bar-ns2-developers"
 }
 EOT
 }
 
-
-
-resource "vault_generic_secret" "developer_sample_data_ns2" {
-  provider = vault.ns2
-  path = "${vault_mount.developers.path}/test_account"
+resource "vault_generic_secret" "operation_sample_data" {
+  path = "${vault_mount.operations.path}/test_account_operations"
 
   data_json = <<EOT
 {
-  "username": "foo-ns2",
-  "password": "bar-ns2"
+  "username": "foo-ns2-operations",
+  "password": "bar-ns2-operations"
 }
 EOT
 }
