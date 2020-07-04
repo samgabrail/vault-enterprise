@@ -7,6 +7,7 @@ vault write /sys/license text="01MV4UU43BK5HGYYTOJZWFQMTMNNEWU33JJZ5FSMCPI5FGUTK
 Primary Raft Cluster
 i3bJzJbKt5htvAh7XWZnOHEDZoaczjCeIsURNIfKoBg=
 s.Fb0HNUsa0hM51M0kDa64DMov
+vault operator unseal i3bJzJbKt5htvAh7XWZnOHEDZoaczjCeIsURNIfKoBg=
 
 vault-pr-useast1-b
 gVhDNRrfyplLfSY44lt/XVBsNOgsbn++ECDJaOPvHh4=
