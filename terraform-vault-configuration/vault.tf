@@ -101,27 +101,27 @@ resource "vault_mount" "db_nomad" {
   description = "Dynamic Secrets Engine for WebBlog MongoDB on Nomad."
 }
 
-resource "vault_database_secret_backend_connection" "mongodb" {
-  backend       = vault_mount.db.path
-  name          = "mongodb"
-  allowed_roles = ["mongodb-role"]
+// resource "vault_database_secret_backend_connection" "mongodb" {
+//   backend       = vault_mount.db.path
+//   name          = "mongodb"
+//   allowed_roles = ["mongodb-role"]
 
-  mongodb {
-    connection_url = "mongodb://${var.DB_USER}:${var.DB_PASSWORD}@${var.DB_URL}/admin"
+//   mongodb {
+//     connection_url = "mongodb://${var.DB_USER}:${var.DB_PASSWORD}@${var.DB_URL}/admin"
     
-  }
-}
+//   }
+// }
 
-resource "vault_database_secret_backend_connection" "mongodb_nomad" {
-  backend       = vault_mount.db_nomad.path
-  name          = "mongodb_nomad"
-  allowed_roles = ["mongodb-nomad-role"]
+// resource "vault_database_secret_backend_connection" "mongodb_nomad" {
+//   backend       = vault_mount.db_nomad.path
+//   name          = "mongodb_nomad"
+//   allowed_roles = ["mongodb-nomad-role"]
 
-  mongodb {
-    connection_url = "mongodb://${var.DB_USER}:${var.DB_PASSWORD}@${var.DB_URL_NOMAD}/admin"
+//   mongodb {
+//     connection_url = "mongodb://${var.DB_USER}:${var.DB_PASSWORD}@${var.DB_URL_NOMAD}/admin"
     
-  }
-}
+//   }
+// }
 
 resource "vault_database_secret_backend_role" "mongodb-role" {
   backend             = vault_mount.db.path
