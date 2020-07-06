@@ -18,6 +18,8 @@ s.J4j6VRazTxS5APrVmiyrBKF6
 vault-dr-pr-useast1-d
 yxB23rGt3G5/DNzONkGbLGfyIhp4yicwUFzY1gQDc0U=
 s.Bmi48dDy44XD9FPy6vWChTiq
+OTP: iVLhdRhjk2imvJevZixM7Hdp6U
+vault operator generate-root -otp="iVLhdRhjk2imvJevZixM7Hdp6U" -decode="GngIMDcYCQ0jejs9QSQSJy8nQSRdASEhVBs"
 
 vault-dr-prim-useast1-c
 88A1G7CKlZKkXOo3Ex9E1IRiuJjein1RwWSmLX4evpk=
