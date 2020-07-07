@@ -34,3 +34,7 @@ Here is the order to create the DR and PR replicas:
 Option 1 - Demote DR Primary to Secondary
 Option 2 - Disable the original DR Primary
 - You can also use a batch token starting with Vault 1.4 as per https://learn.hashicorp.com/vault/operations/ops-disaster-recovery#dr-operation-token-strategy
+- Read replicas are only available in Enterprise. So in Ent you can talk to any node in a RAFT cluster and you get a response directly from that node. In OSS, the follower forwards the request to the Active creating a bottleneck. So Enterprise can provide enhanced performance.
+- You can take a snapshot of a RAFT cluster and restore it to a brand new RAFT cluster. One thing to keep in mind is that the new RAFT cluster will come up with the old unseal key and root token. All the Auth methods and the Secrets engines get migrated over no problem. It works very well, actually. You don't need to bring down the new vault cluster to restore the snapshot, it just works, but Vault automatically seals once restore is complete. Here are the commands used:
+`vault operator raft snapshot save raftsnapshot`
+`vault operator raft snapshot restore -force raftsnapshot`
