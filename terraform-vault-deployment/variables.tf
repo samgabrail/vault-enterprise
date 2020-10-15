@@ -30,5 +30,5 @@ variable "dns_managed_zone" {
 }
 
 variable "dns_name" {
-  default = "vault.hashidemos.tekanaid.com"
+  default = "vault-ha.hashidemos.tekanaid.com"
 }
