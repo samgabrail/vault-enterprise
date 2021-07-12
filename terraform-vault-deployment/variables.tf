@@ -28,7 +28,6 @@ variable "instance_names" {
   "vault3-uswest1-a": "us-west1-a", 
   "vault4-uswest1-a": "us-west1-a",
   "vault5-uswest1-b": "us-west1-b",
-  "vault6-uswest1-b": "us-west1-b",
   "vault7-uswest1-b": "us-west1-b"
   }
 }
